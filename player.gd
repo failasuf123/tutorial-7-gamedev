@@ -8,23 +8,38 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 
+@onready var camera: Camera3D = $Head/Camera3D
+
+var camera_x_rotation: float = 0.0
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		head.rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
+		var x_delta = event.relative.y * mouse_sensitivity
+		camera_x_rotation = clamp(camera_x_rotation + x_delta, -90.0, 90.0)
+		camera.rotation_degrees.x = -camera_x_rotation
+
 
 func _physics_process(delta):
 	var movement_vector = Vector3.ZERO
 
 	if Input.is_action_pressed("movement_forward"):
+		print("W ditekan")
 		movement_vector -= head.basis.z
+		#movement_vector -= global_transform.basis.z
 	if Input.is_action_pressed("movement_backward"):
+		print("S ditekan")
 		movement_vector += head.basis.z
 	if Input.is_action_pressed("movement_left"):
+		print("A ditekan")
 		movement_vector -= head.basis.x
 	if Input.is_action_pressed("movement_right"):
+		print("D ditekan")
 		movement_vector += head.basis.x
 
 	movement_vector = movement_vector.normalized()

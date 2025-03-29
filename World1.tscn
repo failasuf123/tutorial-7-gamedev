@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://bf1ecoy88p1wp"]
+
+[ext_resource type="PackedScene" uid="uid://b06l7e3i2bwgk" path="res://AreaFinish.tscn" id="1_x0vnl"]
+[ext_resource type="PackedScene" uid="uid://cxrvba0m2d8h1" path="res://ObjLamp.tscn" id="1_y5bjy"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bpu8u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eol0l"]
+albedo_color = Color(0.71, 1, 0.758333, 1)
+roughness_texture = SubResource("CanvasTexture_bpu8u")
+emission_enabled = true
+ao_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxo1i"]
+albedo_color = Color(1, 0.26, 0.26, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktfv3"]
+albedo_color = Color(1, 0.13, 0.13, 1)
+
+[node name="World1" type="Node3D"]
+
+[node name="Area3D" parent="." instance=ExtResource("1_x0vnl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.602, -3.20592, 66.822)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Room1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27054, 0, -0.0947113)
+use_collision = true
+flip_faces = true
+size = Vector3(15, 10, 57)
+material = SubResource("StandardMaterial3D_eol0l")
+
+[node name="ObjLamp" parent="CSGCombiner3D/Room1" instance=ExtResource("1_y5bjy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.29725, -4, -13.5869)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.3816, 0.989876, 21.7227)
+flip_faces = true
+size = Vector3(34, 12, 32)
+material = SubResource("StandardMaterial3D_yxo1i")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.999922, 0, 0.0124613, 0, 1, 0, -0.0124613, 0, 0.999922, -27.0449, 1.17237, 53.6283)
+flip_faces = true
+size = Vector3(12, 10, 32)
+material = SubResource("StandardMaterial3D_ktfv3")
+
+[node name="Obst" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.7706, -8.22667, 53.5619)
+size = Vector3(11, 10, 10)

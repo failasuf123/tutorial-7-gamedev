@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3ouvkf2fg4kk"]
+
+[ext_resource type="PackedScene" uid="uid://b3dgujsrev41h" path="res://player.tscn" id="1_e3k7i"]
+[ext_resource type="Script" path="res://interactable.gd" id="1_ihrhs"]
+[ext_resource type="Script" path="res://Switch.gd" id="3_hxyie"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_44hsa"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_ihrhs")
+
+[node name="Player" parent="." instance=ExtResource("1_e3k7i")]
+
+[node name="ObjectPerseption" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06013, 0, -4.11819)
+mesh = SubResource("BoxMesh_44hsa")
+
+[node name="Switch" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.58184)
+script = ExtResource("3_hxyie")
